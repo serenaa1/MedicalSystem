@@ -16,20 +16,22 @@ namespace MedicalSystem.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> Register(RegistrationModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-            model.Role = "user";
-            var result = await _service.RegistrationAsync(model);
-            TempData["msg"] = result.Message;
-            return RedirectToAction(nameof(Register));
-
-        }
         public IActionResult Register()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegistrationModel model)
+        {
+            if (model.Name != null && model.Email != null && model.Username != null && model.Password != null && model.ConfirmPassword != null)
+            {
+                model.Role = "user";
+                var result = await _service.RegistrationAsync(model);
+                TempData["msg"] = result.Message;
+            }
+            if (!ModelState.IsValid) { return View(model); }
+            return RedirectToAction(nameof(Login));
+
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
