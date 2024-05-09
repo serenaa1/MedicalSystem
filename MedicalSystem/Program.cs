@@ -1,6 +1,7 @@
 using MedicalSystem.Interfaces.Abstract;
 using MedicalSystem.Models;
 using MedicalSystem.Models.Domain;
+using MedicalSystem.Models.Paciente;
 using MedicalSystem.Repositories.Implementation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<DatabaseContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
+
+builder.Services.AddDbContext<DatabaseContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
 
 //for identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().

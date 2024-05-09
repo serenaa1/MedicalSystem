@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\assets\mainVendor\vendor\tinymce\themes\silver\theme.js" />
+    <Content Remove="wwwroot\assets\mainVendor\vendor\tinymce\themes\silver\theme.min.js" />
+    <Content Remove="wwwroot\vendor\tinymce\themes\silver\index.js" />
+    <Content Remove="wwwroot\vendor\tinymce\themes\silver\theme.js" />
+    <Content Remove="wwwroot\vendor\tinymce\themes\silver\theme.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Models\Paciente\0niqkzoa.3vs~" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\assets\img\hero-img.svg" />
     <None Include="wwwroot\assets\img\team-shape.svg" />
     <None Include="wwwroot\assets\js\main.js" />
@@ -67,6 +79,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\vendor\tinymce\themes\silver\" />
   </ItemGroup>
 
 </Project>
