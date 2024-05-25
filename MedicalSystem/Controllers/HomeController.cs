@@ -20,7 +20,9 @@ namespace MedicalSystem.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            var data = _dbContext.Patients.ToList();
+            var user = User.Identity.Name;
+            //var users = _dbContext.Users.ToList();
+            var data = _dbContext.Patients.Where(x => x.CreatedBy == user).ToList();
             if (data != null)
             {
                 return View(data);
@@ -30,14 +32,19 @@ namespace MedicalSystem.Controllers
 
         public IActionResult AddPatient(string name, string gender, DateTime date, string adress, string phone, string email, string history)
         {
+
+            var user = User.Identity.Name;
+            var idUserString = _dbContext.Users.Where(x => x.Name == user).FirstOrDefault();
+
             var data = _dbContext.Patients.Where(x => x.FullName == name).FirstOrDefault();
-            if (data == null)
+
+            if (data == null && user != null)
             {
                 var newPatient = new Patient
                 {
                     FullName = name,
                     Gender = gender,
-                    //DateOfBirth = data,
+                    DateOfBirth = date,
                     Address = adress,
                     PhoneNumber = phone,
                     Email = email,
@@ -45,11 +52,15 @@ namespace MedicalSystem.Controllers
                     Invalidated = 20,
                     CreatedOn = DateTime.Now,
                     ModifiedOn = DateTime.Now,
+                    CreatedBy = user, 
+                    ModifiedBy = 2,
+                    PatientId = 3
                 };
                 _dbContext.Patients.Add(newPatient);
             }
 
             _dbContext.SaveChanges();
+
 
             return Ok("Patient added successfully.");
         }

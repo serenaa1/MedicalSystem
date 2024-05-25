@@ -86,7 +86,7 @@
                         TimeSpan difference = currentDate - i.DateOfBirth;
                         int age = (int)(difference.TotalDays / 365.25);
                         <tr>
-                            <td>@i.FullName</td>
+                            <td onclick="openPatientDetails(@i.Id)">@i.FullName</td>
                             <td>@i.Gender</td>
                             <td>@i.DateOfBirth.ToString("dd/MM/yyyy")</td>
                             <td>@age</td>
@@ -122,13 +122,13 @@
             <div class="mb-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="gender1">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="gender1" checked value="M">
                     <label class="form-check-label" for="flexRadioDefault1">
                         M
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="gender2" checked>
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="gender2" value="F">
                     <label class="form-check-label" for="flexRadioDefault2">
                         F
                     </label>
@@ -137,6 +137,10 @@
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Ditelindja</label>
                 <input type="date" class="form-control" id="date" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Adresa</label>
+                <input type="text" class="form-control" id="adress" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Numri i telefonit</label>
@@ -184,6 +188,7 @@
             var phone = $("#phone").val();
             var email = $("#email").val();
             var history = $("#history").val();
+            var adress = $("#adress").val();
 
             // Create data object to send to the server
             var requestData = {
@@ -192,7 +197,8 @@
                 dateOfBirth: dateOfBirth,
                 phone: phone,
                 email: email,
-                history: history
+                history: history,
+                adress: adress
             };
 
             // Send AJAX POST request
@@ -204,6 +210,7 @@
                     // Handle success response
                     alert(response); // Display success message
                     // Optionally, perform additional actions after successful addition of patient
+                    location.reload();
                 },
                 error: function (xhr, status, error) {
                     // Handle error response
@@ -212,7 +219,14 @@
                 }
             });
         });
+
     });
+
+    function openPatientDetails(Id) {
+        var url = "/Patients/Index?id=" + Id;
+
+        window.location.href = url;
+    }
 </script>
 
 

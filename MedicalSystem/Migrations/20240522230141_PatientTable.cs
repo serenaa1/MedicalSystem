@@ -4,7 +4,7 @@
 
 namespace MedicalSystem.Migrations
 {
-    public partial class Patients : Migration
+    public partial class PatientTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

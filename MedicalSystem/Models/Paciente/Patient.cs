@@ -13,7 +13,7 @@
         public DateTime ModifiedOn { get; set; }
         public string MedicalHistory { get; set; }
         public int Invalidated { get; set; }
-        public int CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
         public List<Patient> PatientsList { get; set; }
         public int PatientId { get; set; }

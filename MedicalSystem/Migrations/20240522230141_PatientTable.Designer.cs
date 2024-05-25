@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedicalSystem.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240508235858_Patients")]
-    partial class Patients
+    [Migration("20240522230141_PatientTable")]
+    partial class PatientTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,8 +108,7 @@ namespace MedicalSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("string");
+                    b.Property<string>("CreatedBy").HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
