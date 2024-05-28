@@ -1,4 +1,5 @@
 ﻿using MedicalSystem.Migrations;
+using MedicalSystem.Models.Diagnosis;
 using MedicalSystem.Models.Domain;
 using MedicalSystem.Models.Paciente;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -13,6 +14,8 @@ namespace MedicalSystem.Models
 
         }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<DiagnosisVM> Diagnosis { get; set; } 
+
     }
 
 }

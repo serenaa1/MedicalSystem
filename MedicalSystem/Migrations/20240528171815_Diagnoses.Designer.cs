@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedicalSystem.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240525183743_Diagnosis")]
-    partial class Diagnosis
+    [Migration("20240528171815_Diagnoses")]
+    partial class Diagnoses
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,56 @@ namespace MedicalSystem.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("MedicalSystem.Models.Diagnosis.DiagnosisVM", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DiagnosisId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DiagnosisName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DoctorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Symptoms")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiagnosisId");
+
+                    b.ToTable("Diagnosis");
+                });
 
             modelBuilder.Entity("MedicalSystem.Models.Domain.ApplicationUser", b =>
                 {
@@ -290,6 +340,17 @@ namespace MedicalSystem.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MedicalSystem.Models.Diagnosis.DiagnosisVM", b =>
+                {
+                    b.HasOne("MedicalSystem.Models.Diagnosis.DiagnosisVM", "Diagnosis")
+                        .WithMany("DiagnosisList")
+                        .HasForeignKey("DiagnosisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Diagnosis");
+                });
+
             modelBuilder.Entity("MedicalSystem.Models.Paciente.Patient", b =>
                 {
                     b.HasOne("MedicalSystem.Models.Paciente.Patient", null)
@@ -348,6 +409,11 @@ namespace MedicalSystem.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MedicalSystem.Models.Diagnosis.DiagnosisVM", b =>
+                {
+                    b.Navigation("DiagnosisList");
                 });
 
             modelBuilder.Entity("MedicalSystem.Models.Paciente.Patient", b =>

@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace MedicalSystem.Migrations
 {
-    public partial class Diagnosis : Migration
+    public partial class Diagnoses : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,27 +16,26 @@ namespace MedicalSystem.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PatientId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Symptoms = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DiagnosisName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Symptoms = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DoctorName = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    DoctorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DiagnosisId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Diagnosis", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Diagnosis_Patients_PatientId",
-                        column: x => x.PatientId,
-                        principalTable: "Patients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Diagnosis_PatientId",
+                name: "IX_Diagnosis_DiagnosisId",
                 table: "Diagnosis",
-                column: "PatientId");
+                column: "DiagnosisId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -43,6 +43,6 @@ namespace MedicalSystem.Migrations
             migrationBuilder.DropTable(
                 name: "Diagnosis");
         }
-    }
 
+    }
 }
