@@ -1,0 +1,119 @@
+﻿@model MedicalSystem.Models.PatientDetails.PatientDetailsVM
+<style>
+    .form-spacing .row {
+        margin-top: 20px; /* Adjust the value as needed */
+        margin-bottom: 20px; /* Adjust the value as needed */
+    }
+</style>
+<section class="section profile" style="margin-top:5%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                        @if (!string.IsNullOrEmpty(Model.DiagnosisImageBase64))
+                        {
+                            <img src="data:image/png;base64,@Model.DiagnosisImageBase64" class="img-fluid" alt="Diagnosis Image" />
+                        }
+                        else
+                        {
+                            <span>No image available</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8">
+
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+
+                            @*<li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Detaje</button>
+                            </li>*@
+@*
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Shto Diagnoze</button>
+                            </li>*@
+
+                            @* <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Diagnoza</button>
+                            </li>*@
+
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Diagnoza</button>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content pt-2">
+
+                            <div class="tab-pane fade show active profile-overview" id="profile-change-password">
+                                @foreach (var i in Model.Diagnoses)
+                                {
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label">Emri i diagnozes</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="text" class="form-control" placeholder="@i.DiagnosisName" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-lg-3 col-md-4 label">Pershkrimi</div>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="text" class="form-control" placeholder="@i.Description" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-lg-3 col-md-4 label">Simptomat</div>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="text" class="form-control" placeholder="@i.Symptoms" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-lg-3 col-md-4 label">Data e Krijimit</div>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="text" class="form-control" placeholder="@i.CreatedOn.ToString("dd/MM/yyyy")" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-lg-3 col-md-4 label">Krijuar nga</div>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="text" class="form-control" placeholder="@i.DoctorName" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-lg-3 col-md-4 label">Grafia</div>
+                                        <div class="col-md-8 col-lg-9">
+                                            @if (!string.IsNullOrEmpty(Model.DiagnosisImageBase64))
+                                            {
+                                                <img src="data:image/png;base64,@Model.DiagnosisImageBase64" class="img-fluid" alt="Diagnosis Image" />
+                                            }
+                                            else
+                                            {
+                                                <span>No image available</span>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+
+                        </div><!-- End Bordered Tabs -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+</script>

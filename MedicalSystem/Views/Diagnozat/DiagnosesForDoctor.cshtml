@@ -1,4 +1,4 @@
-﻿@model List<MedicalSystem.Models.Paciente.Patient>
+﻿@model List<MedicalSystem.Models.Diagnosis.DiagnosisForDoctors>
 
 <style>
     /* Define border styles */
@@ -64,18 +64,14 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Emri</th>
-                        <th>Gjinia</th>
-                        <th>Ditelindja</th>
-                        <th>Mosha</th>
-                        <th>Adresa</th>
-                        <th>Numri i telefonit</th>
-                        <th>Email</th>
-                        <th>Historia mjekesore</th>
+                        <th>Pacienti</th>
+                        <th>Emri i diagnozes</th>
+                        <th>Pershkrimi</th>
+                        <th>Simptomat</th>
+                        <th>Krijuar nga</th>
+                        <th>Data e krijimit</th>
                         <th>
-                            <button type="button" class="btn btn-success" onclick="openModal()">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
+
                         </th>
                     </tr>
                 </thead>
@@ -83,17 +79,13 @@
                     @foreach (var i in Model)
                     {
                         DateTime currentDate = DateTime.Now;
-                        TimeSpan difference = currentDate - i.DateOfBirth;
-                        int age = (int)(difference.TotalDays / 365.25);
                         <tr>
-                            <td onclick="openPatientDetails(@i.Id)">@i.FullName</td>
-                            <td>@i.Gender</td>
-                            <td>@i.DateOfBirth.ToString("dd/MM/yyyy")</td>
-                            <td>@age</td>
-                            <td>@i.Address</td>
-                            <td>@i.PhoneNumber</td>
-                            <td>@i.Email</td>
-                            <td>@i.MedicalHistory</td>
+                            <td onclick="openPatientDetails(@i.PatientId)">@i.PatientName</td>
+                            <td onclick="openDiagnosesDetails(@i.Id)">@i.DiagnosisName</td>
+                            <td>@i.Description</td>
+                            <td>@i.Symptoms</td>
+                            <td>@i.DoctorName</td>
+                            <td>@i.CreatedOn</td>
                             <td>
                                 <button type="button" class="btn btn-outline-info">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -161,69 +153,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
-    function openModal() {
-        // Get the modal element by its id
-        var modal = document.getElementById('myModal');
-
-        // Display the modal
-        modal.style.display = 'block';
-    }
-    function closeModal() {
-        // Get the modal element by its id
-        var modal = document.getElementById('myModal');
-
-        // Hide the modal
-        modal.style.display = 'none';
-    }
-    $(document).ready(function () {
-        $("form").submit(function (event) {
-            // Prevent the default form submission behavior
-            event.preventDefault();
-
-            // Get data from form inputs
-            var name = $("#name").val();
-            console.log(name);
-            var gender = $("input[name='flexRadioDefault']:checked").val();
-            var dateOfBirth = $("#date").val();
-            var phone = $("#phone").val();
-            var email = $("#email").val();
-            var history = $("#history").val();
-            var adress = $("#adress").val();
-
-            // Create data object to send to the server
-            var requestData = {
-                name: name,
-                gender: gender,
-                dateOfBirth: dateOfBirth,
-                phone: phone,
-                email: email,
-                history: history,
-                adress: adress
-            };
-
-            // Send AJAX POST request
-            $.ajax({
-                type: "POST",
-                url: "/Home/AddPatient",
-                data: requestData,
-                success: function (response) {
-                    // Handle success response
-                    alert(response); // Display success message
-                    // Optionally, perform additional actions after successful addition of patient
-                    location.reload();
-                },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error(xhr.responseText); // Log error message
-                    alert("Error occurred while adding patient. Please try again."); // Display error message
-                }
-            });
-        });
-
-    });
-
     function openPatientDetails(Id) {
         var url = "/Patients/Index?id=" + Id;
+
+        window.location.href = url;
+    }
+    function openDiagnosesDetails(Id) {
+        var url = "/Diagnozat/DiagnozaDetails?id=" + Id;
 
         window.location.href = url;
     }

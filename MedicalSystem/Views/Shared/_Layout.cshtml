@@ -22,7 +22,73 @@
 
     <link href="~/assets/css/style.css" rel="stylesheet">
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet">
+    <style>
+        /* Increase the size of the bell icon */
+    .nav-icon .bi-bell {
+        font-size: 1.5rem; /* Adjust the size as needed */
+    }
 
+    /* Adjust the position and size of the notifications badge */
+    .nav-icon .badge-number {
+        position: absolute;
+        top: 5px; /* Adjust vertical position */
+        right: 10px; /* Adjust horizontal position */
+        font-size: 0.75rem; /* Adjust font size as needed */
+        padding: 0.25em 0.5em; /* Adjust padding as needed */
+    }
+
+    /* Adjust the notification dropdown items */
+    .notifications .notification-item {
+        font-size: 0.875rem; /* Adjust font size as needed */
+    }
+    /* Increase the size of the message icon */
+    .nav-icon .bi-chat-left-text {
+        font-size: 1.5rem; /* Adjust the size as needed */
+    }
+
+    /* Adjust the position and size of the messages badge */
+    .nav-icon .badge-number {
+        position: absolute;
+        top: 5px; /* Adjust vertical position */
+        right: 5px; /* Adjust horizontal position */
+        font-size: 0.75rem; /* Adjust font size as needed */
+        padding: 0.25em 0.5em; /* Adjust padding as needed */
+    }
+
+    /* Adjust the message dropdown items */
+    .messages .message-item {
+        font-size: 0.875rem; /* Adjust font size as needed */
+    }
+/* Custom CSS to change border color to blue and background to #F5F5F5 */
+.custom-border {
+    border-color: blue !important;
+    background-color: #F5F5F5 !important;
+}
+
+.input-group .form-control.custom-border:focus {
+    border-color: blue !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Adjust shadow color if needed */
+}
+
+.input-group .input-group-text {
+    background-color: #F5F5F5 !important; /* Adjust background color to #F5F5F5 */
+    border-right: 0;
+    border-color: blue !important;
+}
+
+.input-group .form-control.custom-border {
+    border-left: 0;
+}
+
+.input-group .btn-outline-primary.custom-border {
+    border-left: 0;
+    color: blue; /* Change text color to blue */
+    border-color: blue !important;
+}
+
+
+
+    </style>
 </head>
 
 <body>
@@ -30,42 +96,159 @@
     <header id="header" class="header fixed-top" style="background-color:#F5F5F5;">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="@Url.Action("Dashboard","Home")" class="logo d-flex align-items-center">
                 <img src="" alt="">
                 <span>MedicalSystem</span>
             </a>
-
+              <form class="d-flex" action="/search" method="GET">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"></span>
+                    <input type="search" name="query" class="form-control custom-border" placeholder="Kerko" aria-label="Search" aria-describedby="basic-addon1">
+                    <button class="btn btn-outline-primary custom-border" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </form>
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="@Url.Action("Index","Home")">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#about">About</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                    <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
+                    <li><a class="nav-link scrollto active" href="@Url.Action("Index","Home")">Pacientet</a></li>
+                    <li><a class="nav-link scrollto" href="@Url.Action("Index","Diagnozat")">Te gjitha Diagnozat</a></li>
+                    <li><a class="nav-link scrollto" href="@Url.Action("DiagnosesForDoctor","Diagnozat")">Diagnozat e mia</a></li>
+
                     @if (User.IsInRole("admin"))
                     {
                         <li><a class="nav-link" href="@Url.Action("Display","Admin")">Admin</a></li>
 
                     }
-                    <li class="dropdown">
-                        <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="#">Drop Down 1</a></li>
-                            <li class="dropdown">
-                                <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                                <ul>
-                                    <li><a href="#">Deep Drop Down 1</a></li>
-                                    <li><a href="#">Deep Drop Down 2</a></li>
-                                    <li><a href="#">Deep Drop Down 3</a></li>
-                                    <li><a href="#">Deep Drop Down 4</a></li>
-                                    <li><a href="#">Deep Drop Down 5</a></li>
-                                </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-icon position-relative" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-primary badge-number">4</span>
+                        </a><!-- End Notification Icon -->
+
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                            <li class="dropdown-header">
+                                You have 4 new notifications
+                                <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                             </li>
-                            <li><a href="#">Drop Down 2</a></li>
-                            <li><a href="#">Drop Down 3</a></li>
-                            <li><a href="#">Drop Down 4</a></li>
-                        </ul>
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li class="notification-item">
+                                <i class="bi bi-exclamation-circle text-warning"></i>
+                                <div>
+                                    <h4>Lorem Ipsum</h4>
+                                    <p>Quae dolorem earum veritatis oditseno</p>
+                                    <p>30 min. ago</p>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li class="notification-item">
+                                <i class="bi bi-x-circle text-danger"></i>
+                                <div>
+                                    <h4>Atque rerum nesciunt</h4>
+                                    <p>Quae dolorem earum veritatis oditseno</p>
+                                    <p>1 hr. ago</p>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li class="notification-item">
+                                <i class="bi bi-check-circle text-success"></i>
+                                <div>
+                                    <h4>Sit rerum fuga</h4>
+                                    <p>Quae dolorem earum veritatis oditseno</p>
+                                    <p>2 hrs. ago</p>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li class="notification-item">
+                                <i class="bi bi-info-circle text-primary"></i>
+                                <div>
+                                    <h4>Dicta reprehenderit</h4>
+                                    <p>Quae dolorem earum veritatis oditseno</p>
+                                    <p>4 hrs. ago</p>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="dropdown-footer">
+                                <a href="#">Show all notifications</a>
+                            </li>
+                        </ul><!-- End Notification Dropdown Items -->
+                    </li><!-- End Notification Nav -->
+<li class="nav-item dropdown">
+    <a class="nav-link nav-icon position-relative" href="#" data-bs-toggle="dropdown">
+        <i class="bi bi-chat-left-text"></i>
+        <span class="badge bg-success badge-number">3</span>
+    </a><!-- End Messages Icon -->
+
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+        <li class="dropdown-header">
+            You have 3 new messages
+            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+
+        <li class="message-item">
+            <a href="#">
+                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                <div>
+                    <h4>Maria Hudson</h4>
+                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                    <p>4 hrs. ago</p>
+                </div>
+            </a>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+
+        <li class="message-item">
+            <a href="#">
+                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                <div>
+                    <h4>Anna Nelson</h4>
+                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                    <p>6 hrs. ago</p>
+                </div>
+            </a>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+
+        <li class="message-item">
+            <a href="#">
+                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                <div>
+                    <h4>David Muldon</h4>
+                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                    <p>8 hrs. ago</p>
+                </div>
+            </a>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+
+        <li class="dropdown-footer">
+            <a href="#">Show all messages</a>
+        </li>
+    </ul><!-- End Messages Dropdown Items -->
+</li>
+                    @*  <li class="dropdown">
+                    <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                    <li><a href="#">Drop Down 1</a></li>
+                    <li class="dropdown">
+                    <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                    <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                    </ul>
                     </li>
-                    <li><a href="@Url.Action("Login","Login")">Login</a></li>
+                    <li><a href="#">Drop Down 2</a></li>
+                    <li><a href="#">Drop Down 3</a></li>
+                    <li><a href="#">Drop Down 4</a></li>
+                    </ul>
+                    </li>*@
+                    @*<li><a href="@Url.Action("Login","Login")">Login</a></li>*@
                     @*
                     <li class="dropdown megamenu">
                     <a href="#"><span>Mega Menu</span> <i class="bi bi-chevron-down"></i></a>
@@ -117,25 +300,25 @@
                                     <span>My Profile</span>
                                 </a>
                             </li>
-                           @* <li>
-                                <hr class="dropdown-divider">
+                            @* <li>
+                            <hr class="dropdown-divider">
                             </li>*@
 
-                          @*  <li>
-                                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                                    <i class="bi bi-gear"></i>
-                                    <span>Account Settings</span>
-                                </a>
+                            @*  <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                            <i class="bi bi-gear"></i>
+                            <span>Account Settings</span>
+                            </a>
                             </li>*@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
 
-                      @*      <li>
-                                <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                                    <i class="bi bi-question-circle"></i>
-                                    <span>Need Help?</span>
-                                </a>
+                            @*      <li>
+                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                            <i class="bi bi-question-circle"></i>
+                            <span>Need Help?</span>
+                            </a>
                             </li>*@
                             <li>
                                 <hr class="dropdown-divider">
